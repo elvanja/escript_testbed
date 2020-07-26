@@ -4,7 +4,8 @@ defmodule EscriptTestbed.CLI do
   Execute `./escript_testbed help` for details.
   """
 
-  alias EscriptTestbed.{Behaviours, Scenario}
+  alias EscriptTestbed.Introspection
+  alias EscriptTestbed.Scenario
 
   @command_aliases %{
     "s" => "sync",
@@ -72,7 +73,8 @@ defmodule EscriptTestbed.CLI do
   end
 
   defp execute_command(:list, _) do
-    all_scenarios = Behaviours.implementors("EscriptTestbed", Scenario)
+    all_scenarios =
+      Introspection.modules_implementing_behaviour(EscriptTestbed, Scenario)
 
     if Enum.empty?(all_scenarios) do
       IO.puts("No scenarios available at this time")
@@ -86,8 +88,8 @@ defmodule EscriptTestbed.CLI do
   end
 
   defp cli_param_to_scenario(term) do
-    "EscriptTestbed"
-    |> Behaviours.implementors(Scenario)
+    EscriptTestbed
+    |> Introspection.modules_implementing_behaviour(Scenario)
     |> Enum.find(&(scenario_to_cli_param(&1) == term))
   end
 

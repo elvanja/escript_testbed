@@ -24,9 +24,14 @@ defmodule EscriptTestbed.Application do
 
     adapter =
       case opts[:adapter] do
-        "postgres" -> Ecto.Adapters.Postgres
-        "mysql" -> Ecto.Adapters.MyXQL
-        adapter -> raise ArgumentError, message: "Unsupported #{target} repo adapter: #{adapter}"
+        "postgres" ->
+          Ecto.Adapters.Postgres
+
+        "mysql" ->
+          Ecto.Adapters.MyXQL
+
+        adapter ->
+          raise(ArgumentError, message: "Unsupported #{target} repo adapter: #{adapter}")
       end
 
     build_repo_module(name, target, adapter)
