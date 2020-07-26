@@ -9,8 +9,8 @@ defmodule EscriptTestbed.Application do
     Confex.resolve_env!(:escript_testbed)
 
     children = [
-      build_repo_spec(EscriptTestbed.Repos.Source, :source),
-      build_repo_spec(EscriptTestbed.Repos.Destination, :destination)
+      # build_repo_spec(EscriptTestbed.Repos.Source, :source),
+      # build_repo_spec(EscriptTestbed.Repos.Destination, :destination)
     ]
 
     Logger.debug(inspect(children, pretty: true))

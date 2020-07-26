@@ -21,3 +21,9 @@ defmodule EscriptTestbed.Scenarios.DataSetB do
     """)
   end
 end
+
+defimpl EscriptTestbed.Scenario, for: EscriptTestbed.Scenarios.DataSetB do
+  def run(_) do
+    EscriptTestbed.Scenarios.DataSetB.run()
+  end
+end

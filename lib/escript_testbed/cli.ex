@@ -73,8 +73,7 @@ defmodule EscriptTestbed.CLI do
   end
 
   defp execute_command(:list, _) do
-    all_scenarios =
-      Introspection.modules_implementing_behaviour(EscriptTestbed, Scenario)
+    {:consolidated, all_scenarios} = EscriptTestbed.Scenario.__protocol__(:impls)
 
     if Enum.empty?(all_scenarios) do
       IO.puts("No scenarios available at this time")
