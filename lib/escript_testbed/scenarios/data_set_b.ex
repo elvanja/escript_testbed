@@ -7,23 +7,21 @@ defmodule EscriptTestbed.Scenarios.DataSetB do
 
   @behaviour Scenario
 
+  defstruct key_3: nil, key_4: nil
+
+  def new(), do: %__MODULE__{}
+
   @impl Scenario
-  def run do
+  def run(scenario) do
     IO.puts("""
     Sync completed successfully:
-    - scenario: #{__MODULE__}
-    - source:
-      - #{SourceRepo.__adapter__()}
-      - #{inspect(SourceRepo.config())}
-    - destination:
-      - #{DestinationRepo.__adapter__()}
-      - #{inspect(DestinationRepo.config())}
+    - scenario: #{inspect(scenario)}
     """)
   end
 end
 
 defimpl EscriptTestbed.Scenario, for: EscriptTestbed.Scenarios.DataSetB do
-  def run(_) do
-    EscriptTestbed.Scenarios.DataSetB.run()
+  def run(scenario) do
+    EscriptTestbed.Scenarios.DataSetB.run(scenario)
   end
 end

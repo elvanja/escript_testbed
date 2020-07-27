@@ -66,7 +66,7 @@ defmodule EscriptTestbed.CLI do
     scenario = cli_param_to_scenario(term)
 
     if scenario do
-      scenario.run()
+      EscriptTestbed.Scenario.run(scenario)
     else
       IO.puts("No matching scenario found")
     end
@@ -87,9 +87,9 @@ defmodule EscriptTestbed.CLI do
   end
 
   defp cli_param_to_scenario(term) do
-    EscriptTestbed
-    |> Introspection.modules_implementing_behaviour(Scenario)
-    |> Enum.find(&(scenario_to_cli_param(&1) == term))
+    module_suffix = Macro.camelize(term) |> String.to_atom()
+    module = Module.safe_concat([EscriptTestbed.Scenarios, module_suffix])
+    module.new
   end
 
   defp scenario_to_cli_param(module) do
